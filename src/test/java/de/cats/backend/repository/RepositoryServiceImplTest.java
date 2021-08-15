@@ -12,6 +12,7 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
@@ -23,7 +24,7 @@ class RepositoryServiceImplTest {
         //given
         RepositoryServiceImpl underTest = new RepositoryServiceImpl();
         CatsRepositoryImpl catsRepository = new CatsRepositoryImpl(objectMapper);
-        ArrayList<Player> playerList = new ArrayList<>();
+        List<Player> playerList = new ArrayList<>();
         playerList.add(new Player("Otto"));
         playerList.add(new Player("Heinz"));
 

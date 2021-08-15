@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -20,9 +21,9 @@ public class RepositoryServiceImpl implements RepositoryService {
     ObjectMapper objectMapper;
 
     @Override
-     public ArrayList<Player> getNewStacks(ArrayList<Player> players) {
+     public List<Player> getNewStacks(List<Player> players) {
         CatsRepositoryImpl catsRepository = new CatsRepositoryImpl(objectMapper);
-        ArrayList<Cat> allCatsArray = catsRepository.loadCats();
+        List<Cat> allCatsArray = catsRepository.loadCats();
         System.out.println("Das allCatsArray enthält folgende Katzen" + allCatsArray);
         ArrayList<String> names = catsRepository.loadNames();
         Collections.shuffle(names);
@@ -66,8 +67,8 @@ public class RepositoryServiceImpl implements RepositoryService {
         return start.plusDays(new Random().nextInt((int) days + 1));
     }
 
-    private ArrayList<Cat> setImage(CatsRepositoryImpl catsRepository, ArrayList<Cat> allCatsArray) {
-        ArrayList<File> imageFilesList;
+    private List<Cat> setImage(CatsRepositoryImpl catsRepository, List<Cat> allCatsArray) {
+        List<File> imageFilesList;
         imageFilesList = catsRepository.collectImageFiles();
         Collections.shuffle(imageFilesList);
 

@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,8 +17,8 @@ import org.springframework.stereotype.Service;
 public class CatsRepositoryImpl extends CatsRepository {
     private final ObjectMapper mapper;
 
-    ArrayList<Cat> loadCats() {
-        ArrayList<Cat> catArray = new ArrayList<>();
+    List<Cat> loadCats() {
+        List<Cat> catArray = new ArrayList<>();
          try {
             catArray = readCatsFromFile(catArray);
 
@@ -27,10 +28,10 @@ public class CatsRepositoryImpl extends CatsRepository {
         return catArray;
     }
 
-    private ArrayList<Cat> readCatsFromFile(ArrayList<Cat> catArray) throws IOException {
+    private List<Cat> readCatsFromFile(List<Cat> catArray) throws IOException {
         File datei = new File(System.getProperty("user.home") + File.separator + "CatGame" +
                 File.separator + "Cats.json");
-        catArray.addAll(Arrays.asList(mapper.readValue(datei, Cat[].class)));
+        catArray.addAll(Arrays.asList(this.mapper.readValue(datei, Cat[].class)));
         return catArray;
     }
 

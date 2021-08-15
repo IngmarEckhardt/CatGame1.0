@@ -3,8 +3,9 @@ package de.cats.backend.repository;
 import de.cats.backend.model.Player;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public interface RepositoryService {
 
-    ArrayList<Player> getNewStacks(ArrayList<Player> players);
+    List<Player> getNewStacks(List<Player> players);
 }
