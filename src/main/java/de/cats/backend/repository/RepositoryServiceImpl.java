@@ -18,14 +18,14 @@ import java.util.concurrent.ThreadLocalRandom;
 @Service
 @RequiredArgsConstructor
 public class RepositoryServiceImpl implements RepositoryService {
-    ObjectMapper objectMapper;
+    private final ObjectMapper objectMapper;
 
     @Override
      public List<Player> getNewStacks(List<Player> players) {
         CatsRepositoryImpl catsRepository = new CatsRepositoryImpl(objectMapper);
         List<Cat> allCatsArray = catsRepository.loadCats();
         System.out.println("Das allCatsArray enthält folgende Katzen" + allCatsArray);
-        ArrayList<String> names = catsRepository.loadNames();
+        List<String> names = catsRepository.loadNames();
         Collections.shuffle(names);
         System.out.println("Das namesList enthält folgende Namen" + names);
 
@@ -37,7 +37,7 @@ public class RepositoryServiceImpl implements RepositoryService {
         setImage(catsRepository, allCatsArray);
         Collections.shuffle(allCatsArray);
 
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < 16; i++) {
             players.get(0).addToStack(allCatsArray.remove(0));
             players.get(1).addToStack(allCatsArray.remove(0));
             System.out.println("Das Stack von " + players.get(0).getName() + " enthält " + players.get(0).getStack());
@@ -46,7 +46,7 @@ public class RepositoryServiceImpl implements RepositoryService {
         return players;
     }
 
-    private Cat addRandomCat(ArrayList<String> names) {
+    private Cat addRandomCat(List<String> names) {
         String name = names.remove(0);
         int size = ThreadLocalRandom.current().nextInt(20, 41);
         double weightRaw = ThreadLocalRandom.current().nextDouble(3.00, 6.0001);

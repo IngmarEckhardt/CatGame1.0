@@ -10,10 +10,12 @@ import java.util.Arrays;
 import java.util.List;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class CatsRepositoryImpl extends CatsRepository {
     private final ObjectMapper mapper;
 
@@ -23,19 +25,19 @@ public class CatsRepositoryImpl extends CatsRepository {
             catArray = readCatsFromFile(catArray);
 
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException("Die Cats.json-Datei war nicht lesbar");
         }
         return catArray;
     }
 
-    private List<Cat> readCatsFromFile(List<Cat> catArray) throws IOException {
+    List<Cat> readCatsFromFile(List<Cat> catArray) throws IOException {
         File datei = new File(System.getProperty("user.home") + File.separator + "CatGame" +
                 File.separator + "Cats.json");
-        catArray.addAll(Arrays.asList(this.mapper.readValue(datei, Cat[].class)));
+        catArray.addAll(Arrays.asList(mapper.readValue(datei, Cat[].class)));
         return catArray;
     }
 
-    ArrayList<String> loadNames() {
+    List<String> loadNames() {
 
         ArrayList<String> namesArray = new ArrayList<>();
             File datei = new File(System.getProperty("user.home") + File.separator + "CatGame" +
@@ -44,12 +46,12 @@ public class CatsRepositoryImpl extends CatsRepository {
                 namesArray.addAll(Arrays.asList(mapper.readValue(datei, String[].class)));
 
             } catch (IOException e) {
-                e.printStackTrace();
+                throw new RuntimeException("Die Namensliste war nicht lesbar");
             }
             return namesArray;
         }
 
-    ArrayList<File> collectImageFiles() {
+    List<File> collectImageFiles() {
         ArrayList<File> images = new ArrayList<>();
         for (int i = 1; i < 33; i++) {
             File catImage = new File(System.getProperty("user.home") + File.separator + "CatGame" +

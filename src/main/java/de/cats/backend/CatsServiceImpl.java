@@ -1,5 +1,6 @@
 package de.cats.backend;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import de.cats.backend.model.*;
 
 
@@ -24,7 +25,7 @@ public class CatsServiceImpl implements CatsService {
 
     @Override
     public ArrayList<Player> getNewGame(String name1, String name2) {
-        RepositoryServiceImpl repositoryService = new RepositoryServiceImpl();
+        RepositoryServiceImpl repositoryService = new RepositoryServiceImpl(new ObjectMapper());
         ArrayList<Player> playerList = new ArrayList<>();
 
         playerList.add(playerOne = new Player (name1));
