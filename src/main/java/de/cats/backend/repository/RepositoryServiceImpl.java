@@ -1,5 +1,6 @@
 package de.cats.backend.repository;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import de.cats.backend.model.Cat;
 import de.cats.backend.model.Player;
 import lombok.RequiredArgsConstructor;
@@ -16,10 +17,11 @@ import java.util.concurrent.ThreadLocalRandom;
 @Service
 @RequiredArgsConstructor
 public class RepositoryServiceImpl implements RepositoryService {
+    ObjectMapper objectMapper;
 
     @Override
      public ArrayList<Player> getNewStacks(ArrayList<Player> players) {
-        CatsRepositoryImpl catsRepository = new CatsRepositoryImpl();
+        CatsRepositoryImpl catsRepository = new CatsRepositoryImpl(objectMapper);
         ArrayList<Cat> allCatsArray = catsRepository.loadCats();
         System.out.println("Das allCatsArray enthält folgende Katzen" + allCatsArray);
         ArrayList<String> names = catsRepository.loadNames();

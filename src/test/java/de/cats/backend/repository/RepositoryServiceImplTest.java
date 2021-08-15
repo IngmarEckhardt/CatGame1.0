@@ -1,5 +1,6 @@
 package de.cats.backend.repository;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import de.cats.backend.model.Cat;
 import de.cats.backend.model.Player;
 import org.junit.jupiter.api.AfterEach;
@@ -16,12 +17,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
 
 class RepositoryServiceImplTest {
-
+    ObjectMapper objectMapper;
     @Test
      void areThereCatStacksAdded() {
         //given
         RepositoryServiceImpl underTest = new RepositoryServiceImpl();
-        CatsRepositoryImpl catsRepository = new CatsRepositoryImpl();
+        CatsRepositoryImpl catsRepository = new CatsRepositoryImpl(objectMapper);
         ArrayList<Player> playerList = new ArrayList<>();
         playerList.add(new Player("Otto"));
         playerList.add(new Player("Heinz"));
