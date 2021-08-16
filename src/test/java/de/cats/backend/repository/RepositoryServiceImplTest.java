@@ -40,7 +40,7 @@ class RepositoryServiceImplTest {
      void areThereCatStacksAdded() {
         //given
         List<Player> playerList = getPlayerList();
-        underTest = new RepositoryServiceImpl(getObjectMapper());
+        underTest = new RepositoryServiceImpl();
 
         //when
         playerList = underTest.getNewStacks(playerList);
@@ -53,7 +53,7 @@ class RepositoryServiceImplTest {
     @Test
     void doesItCreateARandomCat() {
         //given
-        underTest = new RepositoryServiceImpl(getObjectMapper());
+        underTest = new RepositoryServiceImpl();
 
         //when
         Cat cat = ReflectionTestUtils.invokeMethod(underTest, "addRandomCat",getCatNames());
@@ -67,7 +67,7 @@ class RepositoryServiceImplTest {
     void doesItAddFiles () throws IOException {
         //given
         ArrayList<Cat> catlist = new ArrayList<>();
-        underTest = new RepositoryServiceImpl(getObjectMapper());
+        underTest = new RepositoryServiceImpl();
         catsRepository = new CatsRepositoryImpl(getObjectMapper());
         catlist.addAll(Arrays.asList(getMockCats()));
 

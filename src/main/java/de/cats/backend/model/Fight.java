@@ -7,11 +7,10 @@ public class Fight {
     private Cat playerOnesCat;
     private Cat playerTwosCat;
 
-    public Fight(Player playerOne, Player playerTwo, BattleType battleType) {
+    public Fight(Player playerOne, Player playerTwo) {
         this.player1 = playerOne;
         this.player2 = playerTwo;
 
-        newFight(battleType);
     }
 
      public void newFight(BattleType battleType) {

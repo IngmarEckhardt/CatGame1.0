@@ -8,12 +8,11 @@ import lombok.Data;
 public class Player {
     private final String name;
     private Result result;
-    private List<Cat> stack;
+    private final List<Cat> stack  = new ArrayList<>();
     private Map<Cat, Result> resultsOfRounds = new HashMap<>();
 
 
     public Player (String name) {
-        this.stack = new ArrayList<>();
         this.name = name;
     }
 

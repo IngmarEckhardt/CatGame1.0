@@ -42,7 +42,7 @@ public class FightResult{
         }
 
 
-        System.out.println("Der Spieler" + player1.getName() + " spielte diese Karten " + player1.getResultsOfRounds());
-        System.out.println("Die Spieler" + player2.getName() + " spielte diese Karten " + player2.getResultsOfRounds()+"\n");
+        System.out.println("Der Spieler" + player1.getName() + " spielte diese Karten\n " + player1.getResultsOfRounds());
+        System.out.println("\nDie Spieler" + player2.getName() + " spielte diese Karten\n " + player2.getResultsOfRounds()+"\n");
     }
 }

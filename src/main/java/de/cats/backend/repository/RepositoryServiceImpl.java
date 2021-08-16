@@ -1,12 +1,18 @@
 package de.cats.backend.repository;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import de.cats.backend.model.Cat;
 import de.cats.backend.model.Player;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -18,10 +24,14 @@ import java.util.concurrent.ThreadLocalRandom;
 @Service
 @RequiredArgsConstructor
 public class RepositoryServiceImpl implements RepositoryService {
-    private final ObjectMapper objectMapper;
+
 
     @Override
-     public List<Player> getNewStacks(List<Player> players) {
+    public List<Player> getNewStacks(List<Player> players) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JavaTimeModule());
+        objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+
         CatsRepositoryImpl catsRepository = new CatsRepositoryImpl(objectMapper);
         List<Cat> allCatsArray = catsRepository.loadCats();
         System.out.println("Das allCatsArray enthält folgende Katzen" + allCatsArray);
@@ -33,8 +43,8 @@ public class RepositoryServiceImpl implements RepositoryService {
             allCatsArray.add(addRandomCat(names));
             System.out.println("Das allCatsArray enthält nach dem Hinzufügen von RandomKatzen folgende Katzen: \n" + allCatsArray);
         }
-
-        setImage(catsRepository, allCatsArray);
+        writeGame(players);
+//        setImage(catsRepository, allCatsArray);
         Collections.shuffle(allCatsArray);
 
         for (int i = 0; i < 16; i++) {
@@ -43,6 +53,7 @@ public class RepositoryServiceImpl implements RepositoryService {
             System.out.println("Das Stack von " + players.get(0).getName() + " enthält " + players.get(0).getStack());
             System.out.println("Das Stack von " + players.get(1).getName() + " enthält " + players.get(1).getStack());
         }
+
         return players;
     }
 
@@ -76,5 +87,17 @@ public class RepositoryServiceImpl implements RepositoryService {
             cat.setImage(imageFilesList.remove(0));
         }
         return allCatsArray;
+    }
+    public static void writeGame(List<Player> playerList) {
+        try {
+            File datei = new File(System.getProperty("user.home") + File.separator + "Game.json");
+            ObjectMapper mapper = new ObjectMapper();
+            mapper.registerModule(new JavaTimeModule());
+            mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
+            mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+            mapper.writeValue(datei, playerList);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

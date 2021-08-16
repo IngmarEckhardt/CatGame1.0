@@ -20,7 +20,6 @@ public class Cat {
     private LocalDateTime birthday;
 
     public Cat () {
-
     }
     public Cat(String name, File image, int size, double weight, int purrability, int maliciousness, Element element, LocalDateTime birthday) {
         this.name = name;

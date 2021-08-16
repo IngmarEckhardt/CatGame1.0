@@ -9,7 +9,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
+import de.cats.backend.repository.CatsRepositoryImpl;
 import de.cats.backend.repository.RepositoryServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -24,8 +26,9 @@ public class CatsServiceImpl implements CatsService {
     }
 
     @Override
+
     public ArrayList<Player> getNewGame(String name1, String name2) {
-        RepositoryServiceImpl repositoryService = new RepositoryServiceImpl(new ObjectMapper());
+        RepositoryServiceImpl repositoryService = new RepositoryServiceImpl();
         ArrayList<Player> playerList = new ArrayList<>();
 
         playerList.add(playerOne = new Player (name1));
@@ -41,11 +44,8 @@ public class CatsServiceImpl implements CatsService {
 
     @Override
     public Fight getNextFight(List<Player> playerList, BattleType battleType) {
-        BattleType nextBattleType = null;
-        nextBattleType= battleType;
-
-
-        fight = new Fight(playerList.get(0), playerList.get(1), nextBattleType);
+        fight = new Fight(playerList.get(0), playerList.get(1));
+        fight.newFight(battleType);
         return fight;
     }
 
