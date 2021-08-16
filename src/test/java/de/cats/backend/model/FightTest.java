@@ -17,8 +17,7 @@ class FightTest {
 
         Fight fight = new Fight(playerList.get(0), playerList.get(1));
         //when
-        fight.newFight(BattleType.ELEMENT);
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 16; i++) {
             fight.newFight(BattleType.ELEMENT);
             //then
             if (fight.getPlayerOnesCat().getElement() == fight.getPlayerTwosCat().getElement()) {
@@ -33,7 +32,7 @@ class FightTest {
                 assertTrue(fight.getPlayer1().getResult() == Result.LOSE && fight.getPlayer2().getResult() == Result.WIN);
 
             }
-            System.out.println("Spiel Nr" + i);
+            System.out.println("Spiel Nr" + (i+1));
         }
     }
     @BeforeEach
