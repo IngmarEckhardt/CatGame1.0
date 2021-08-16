@@ -4,17 +4,23 @@ import de.cats.backend.CatsServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class FightTest {
     List<Player> playerList;
-    @Test
-    void newFightWithElement() {
-        //given
 
+    @BeforeEach
+    void loadTestGame () {
+        CatsServiceImpl catsService = new CatsServiceImpl();
+        playerList = catsService.getNewGame("Player1", "Player2");
+        System.out.println(playerList);
+    }
+
+    @Test
+    void itShouldSetTheCorrectResultWhenFightWithElement() {
+        //given
         Fight fight = new Fight(playerList.get(0), playerList.get(1));
         //when
         for (int i = 0; i < 16; i++) {
@@ -35,10 +41,102 @@ class FightTest {
             System.out.println("Spiel Nr" + (i+1));
         }
     }
-    @BeforeEach
-    void loadTestGame () {
-        CatsServiceImpl catsService = new CatsServiceImpl();
-        playerList = catsService.getNewGame("Player1", "Player2");
-        System.out.println(playerList);
-         }
+
+    @Test
+    void itShouldSetCorrectResultFightWithWeigh () {
+        //given
+        Fight fight = new Fight(playerList.get(0), playerList.get(1));
+
+        //when
+        for (int i = 0; i < 16; i++) {
+            final Result resultPlayer1AtBegin = fight.getPlayer1().getResult();
+            final Result resultPlayer2AtBegin = fight.getPlayer2().getResult();
+            fight.newFight(BattleType.WEIGHT);
+        //then
+            if (fight.getPlayerOnesCat().getSize() > fight.getPlayerTwosCat().getSize()) {
+                assertTrue(fight.getPlayer1().getResult() == Result.WIN && fight.getPlayer2().getResult() == Result.LOSE);
+            }
+            else if (fight.getPlayerOnesCat().getSize() < fight.getPlayerTwosCat().getSize()) {
+                assertTrue(fight.getPlayer1().getResult() == Result.LOSE && fight.getPlayer2().getResult() == Result.WIN);
+            }
+            else {
+                assertTrue (fight.getPlayer1().getResult() == resultPlayer1AtBegin &&
+                        fight.getPlayer2().getResult() == resultPlayer2AtBegin);
+                assertFalse (fight.getPlayer1().getResult()== fight.getPlayer2().getResult());
+            }
+        }
+    }    @Test
+    void itShouldSetCorrectResultFightWithSize () {
+        //given
+        Fight fight = new Fight(playerList.get(0), playerList.get(1));
+
+        //when
+        for (int i = 0; i < 16; i++) {
+            final Result resultPlayer1AtBegin = fight.getPlayer1().getResult();
+            final Result resultPlayer2AtBegin = fight.getPlayer2().getResult();
+            fight.newFight(BattleType.SIZE);
+        //then
+            if (fight.getPlayerOnesCat().getSize() > fight.getPlayerTwosCat().getSize()) {
+                assertTrue(fight.getPlayer1().getResult() == Result.WIN && fight.getPlayer2().getResult() == Result.LOSE);
+            }
+            else if (fight.getPlayerOnesCat().getSize() < fight.getPlayerTwosCat().getSize()) {
+                assertTrue(fight.getPlayer1().getResult() == Result.LOSE && fight.getPlayer2().getResult() == Result.WIN);
+            }
+            else {
+                assertTrue (fight.getPlayer1().getResult() == resultPlayer1AtBegin &&
+                        fight.getPlayer2().getResult() == resultPlayer2AtBegin);
+                assertFalse (fight.getPlayer1().getResult()== fight.getPlayer2().getResult());
+            }
+        }
+    }
+
+    @Test
+    void itShouldSetCorrectResultFightWithPurrabilitay () {
+        //given
+        Fight fight = new Fight(playerList.get(0), playerList.get(1));
+
+        //when
+        for (int i = 0; i < 16; i++) {
+            final Result resultPlayer1AtBegin = fight.getPlayer1().getResult();
+            final Result resultPlayer2AtBegin = fight.getPlayer2().getResult();
+            fight.newFight(BattleType.PURRABILITY);
+        //then
+            if (fight.getPlayerOnesCat().getPurrability() > fight.getPlayerTwosCat().getPurrability()) {
+                assertTrue(fight.getPlayer1().getResult() == Result.WIN && fight.getPlayer2().getResult() == Result.LOSE);
+            }
+            else if (fight.getPlayerOnesCat().getPurrability() < fight.getPlayerTwosCat().getPurrability()) {
+                assertTrue(fight.getPlayer1().getResult() == Result.LOSE && fight.getPlayer2().getResult() == Result.WIN);
+            }
+            else {
+                assertTrue (fight.getPlayer1().getResult() == resultPlayer1AtBegin &&
+                        fight.getPlayer2().getResult() == resultPlayer2AtBegin);
+                assertFalse (fight.getPlayer1().getResult()== fight.getPlayer2().getResult());
+            }
+        }
+    }
+
+    @Test
+    void itShouldSetCorrectResultFightWithMaliciousness() {
+        //given
+        Fight fight = new Fight(playerList.get(0), playerList.get(1));
+
+        //when
+        for (int i = 0; i < 16; i++) {
+            final Result resultPlayer1AtBegin = fight.getPlayer1().getResult();
+            final Result resultPlayer2AtBegin = fight.getPlayer2().getResult();
+            fight.newFight(BattleType.MALICIOUSNESS);
+        //then
+            if (fight.getPlayerOnesCat().getMaliciousness() > fight.getPlayerTwosCat().getMaliciousness() ) {
+                assertTrue(fight.getPlayer1().getResult() == Result.WIN && fight.getPlayer2().getResult() == Result.LOSE);
+            }
+            else if (fight.getPlayerOnesCat().getMaliciousness()  < fight.getPlayerTwosCat().getMaliciousness() ) {
+                assertTrue(fight.getPlayer1().getResult() == Result.LOSE && fight.getPlayer2().getResult() == Result.WIN);
+            }
+            else {
+                assertTrue (fight.getPlayer1().getResult() == resultPlayer1AtBegin &&
+                        fight.getPlayer2().getResult() == resultPlayer2AtBegin);
+                assertFalse (fight.getPlayer1().getResult()== fight.getPlayer2().getResult());
+            }
+        }
+    }
 }

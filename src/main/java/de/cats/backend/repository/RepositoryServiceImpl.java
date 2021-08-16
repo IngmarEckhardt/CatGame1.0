@@ -43,8 +43,8 @@ public class RepositoryServiceImpl implements RepositoryService {
             allCatsArray.add(addRandomCat(names));
             System.out.println("Das allCatsArray enthält nach dem Hinzufügen von RandomKatzen folgende Katzen: \n" + allCatsArray);
         }
-        writeGame(players);
-//        setImage(catsRepository, allCatsArray);
+
+        setImage(catsRepository, allCatsArray);
         Collections.shuffle(allCatsArray);
 
         for (int i = 0; i < 16; i++) {
@@ -88,16 +88,5 @@ public class RepositoryServiceImpl implements RepositoryService {
         }
         return allCatsArray;
     }
-    public static void writeGame(List<Player> playerList) {
-        try {
-            File datei = new File(System.getProperty("user.home") + File.separator + "Game.json");
-            ObjectMapper mapper = new ObjectMapper();
-            mapper.registerModule(new JavaTimeModule());
-            mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
-            mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
-            mapper.writeValue(datei, playerList);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+
 }

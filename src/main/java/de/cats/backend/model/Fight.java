@@ -43,8 +43,8 @@ public class Fight {
 
             case WEIGHT:
                 System.out.println("Der Kampf findet mit dem Vergleich des Gewichts statt");
-                if (playerOnesCat.getWeight() > playerTwosCat.getWeight()) {playerOneWin();}
-                else if (playerOnesCat.getWeight() < playerTwosCat.getWeight()) {playerTwoWin();}
+                if (playerOnesCat.getSize() > playerTwosCat.getSize()) {playerOneWin();}
+                else if (playerOnesCat.getSize() < playerTwosCat.getSize()) {playerTwoWin();}
                 else {}
                 break;
 
@@ -63,7 +63,7 @@ public class Fight {
                 else {}
                 break;
 
-            case MALICOUSNESS:
+            case MALICIOUSNESS:
                 System.out.println("Die bösartigere Katze gewinnt");
                 if (playerOnesCat.getMaliciousness() > playerTwosCat.getMaliciousness()) {playerOneWin();}
                 else if (playerOnesCat.getMaliciousness() < playerTwosCat.getMaliciousness()) {playerTwoWin();}

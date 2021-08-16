@@ -35,8 +35,13 @@ public class CatsServiceImpl implements CatsService {
         playerList.add(playerTwo = new Player (name2));
 
         Random random = new Random();
-        if(random.nextBoolean()){playerOne.setResult(Result.WIN);
-        } else{ playerTwo.setResult(Result.WIN);}
+        if(random.nextBoolean()){
+            playerOne.setResult(Result.WIN);
+            playerTwo.setResult(Result.LOSE);
+        } else {
+            playerTwo.setResult(Result.WIN);
+            playerOne.setResult(Result.LOSE);
+        }
 
         repositoryService.getNewStacks(playerList);
         return playerList;

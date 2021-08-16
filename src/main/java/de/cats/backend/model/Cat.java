@@ -35,39 +35,4 @@ public class Cat {
     protected void setRandomElement() {
         element = Element.values()[new Random().nextInt(Element.values().length)];
     }
-    protected String getName() {
-        return name;
-    }
-
-    protected File getImage() {
-        return image;
-    }
-
-    protected int getSize() {
-        return size;
-    }
-
-    protected double getWeight() {
-        return weight;
-    }
-
-    protected int getPurrability() {
-        return purrability;
-    }
-
-    protected int getMaliciousness() {
-        return maliciousness;
-    }
-
-    protected Element getElement() {
-        return element;
-    }
-
-    protected LocalDateTime getBirthday() {
-        return birthday;
-    }
-
-
-
-
 }
